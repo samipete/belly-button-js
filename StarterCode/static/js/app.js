@@ -29,13 +29,13 @@ function optionChanged(value){
         buildCharts(value,data)      
 
     })};
-// define a function to build charts and demographic info
+// define function to build charts and demographic info
 function buildCharts(value, data){
     console.log('data is ', data.metadata);
     const sampleData = data.samples.find(sample=> sample.id.toString() === value)
     const metaData = data.metadata.find(sample=> sample.id.toString() === value)
     barChart(sampleData)
-    // !! add func for bubble and demo info!!
+    bubbleChart(sampleData)
     console.log(sampleData)
     console.log(metaData)
 }
@@ -43,8 +43,8 @@ function buildCharts(value, data){
 function barChart (data){
     // declare varaibles 
      let  ids = data.otu_ids;
-     let labels = data.otu_labels.slice(0, 10).reverse();
-     let values = data.sample_values.slice(0,10).reverse();
+     let labels = data.otu_labels.slice(0, 10);
+     let values = data.sample_values.slice(0,10);
      // create y labels 
      let yData = ids.slice(0,10);
      let yLabels = [];
@@ -53,7 +53,7 @@ function barChart (data){
      });
  
      // create trace for bar chart
-     let traceOne = {
+     let barTrace = {
         x: values,
         y: yLabels,
         text: labels,
@@ -72,14 +72,35 @@ function barChart (data){
         b: 100
       }
        };
-      // Plotly to plot the traceOne with the layout. 
-      Plotly.newPlot("bar", [traceOne], barLayout);
+      // Plotly to plot the barTrace with the layout. 
+      Plotly.newPlot("bar", [barTrace], barLayout);
   
 }
 
 // define funtion for bubble chart (add to build charts )
-// let bubbleLabels = data.otu_labels;
-// let bubbleValues = data.sample_values;
+function bubbleChart(data){
+    let ids = data.otu_ids;
+    let bubbleLabels = data.otu_labels;
+    let bubbleValues = data.sample_values;
+    let bubbleTrace = {
+        x: ids,
+        y: bubbleValues,
+        text: bubbleLabels,
+        mode: 'markers',
+        marker: {
+            size: bubbleLabels,
+            color: ids
+        }
+    };
+    let bubbleLayout = {
+        xaxis: {title: "OTU ID"}
+    };
+    // plotly to plot bubbleTrace with layout
+
+      Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
+
+}
+
 
 
 // define function for demographics tables
