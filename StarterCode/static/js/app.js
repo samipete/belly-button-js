@@ -36,7 +36,6 @@ function buildCharts(value, data){
     const metaData = data.metadata.find(sample=> sample.id.toString() === value)
     barChart(sampleData)
     bubbleChart(sampleData)
-    buildDemoInfo(metaData)
     console.log(sampleData)
     console.log(metaData)
 }
@@ -96,7 +95,8 @@ function bubbleChart(data){
     let bubbleLayout = {
         xaxis: {title: "OTU ID"},
         height: 600,
-        width: 1200
+        width: 1200,
+        colorscale: "Earth"
     };
     // plotly to plot bubbleTrace with layout
       Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
@@ -104,21 +104,6 @@ function bubbleChart(data){
 }
 
 // define function for demographics table
-function buildDemoInfo(data){
-    d3.json('samples.json').then((data) => {
-        // Selecting the #sample-metadat html to update the information and grabbing the metadata
-                let demoTable = d3.select('#sample-metadata');
-                let demoData = data.metadata;
-                let info = demoData.filter(demoObject => demoObject.id == samples)[0];
-                // clear exisitng metadat
-                demoTable.html("");
-        
-        // use object.entreis to enter metadata, size h4, changing the KEY to uppercase and returning all labels and metadata for the ID
-                Object.entries(info).forEach(([key, type]) => {
-                    demoTable.append('h6').text(`${key}: ${type}`);
-                });
-            });
-        }
 
 
 
