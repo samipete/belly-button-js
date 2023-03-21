@@ -90,15 +90,15 @@ function bubbleChart(data){
         mode: 'markers',
         marker: {
             size: bubbleValues,
-            color: bubbleIds
+            color: bubbleIds,
+            colorscale: "Jet"
         }
     };
     // create layout for bubblechart
     let bubbleLayout = {
         xaxis: {title: "OTU ID"},
         height: 600,
-        width: 1200,
-        colorscale: "Earth"
+        width: 1200
     };
     // plotly to plot bubbleTrace with layout
       Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
@@ -106,7 +106,6 @@ function bubbleChart(data){
 }
 
 // define function for demographics table
-
 
 
 
