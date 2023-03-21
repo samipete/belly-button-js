@@ -20,7 +20,7 @@ function init(){
         let valueOne = names[0];
         buildCharts(valueOne, data)
     });
- }
+ };
 
 // define a function that updates info based dropdown selection 
 function optionChanged(value){
@@ -36,9 +36,10 @@ function buildCharts(value, data){
     const metaData = data.metadata.find(sample=> sample.id.toString() === value)
     barChart(sampleData)
     bubbleChart(sampleData)
+    demoTable(metaData)
     console.log(sampleData)
     console.log(metaData)
-}
+};
 // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 function barChart (data){
     // declare varaibles 
@@ -75,7 +76,7 @@ function barChart (data){
       // Plotly to plot the barTrace with the layout. 
       Plotly.newPlot("bar", [barTrace], barLayout);
   
-}
+};
 
 // define funtion for bubble chart (add to build charts )
 function bubbleChart(data){
@@ -103,11 +104,20 @@ function bubbleChart(data){
     // plotly to plot bubbleTrace with layout
       Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
 
-}
+};
 
 // define function for demographics table
-
-
+function demoTable(data){
+    let demoData = d3.select('#sample-metadata')
+    // clear old data when option is change
+    demoData.html("");
+    // append new data as unordered list
+   let dataList = demoData.append('ul')
+    // use object.entries to key/values and append list item to datalist
+    Object.entries(data).forEach(([key, type]) => {
+        dataList.append('li').text(`${key}: ${type}`);
+    });
+};
 
 // Initialize data and chart building
 init()
