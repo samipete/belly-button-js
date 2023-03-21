@@ -82,6 +82,7 @@ function bubbleChart(data){
     let bubbleIds = data.otu_ids;
     let bubbleLabels = data.otu_labels;
     let bubbleValues = data.sample_values;
+    // create trace for bubblechart
     let bubbleTrace = {
         x: bubbleIds,
         y: bubbleValues,
@@ -92,6 +93,7 @@ function bubbleChart(data){
             color: bubbleIds
         }
     };
+    // create layout for bubblechart
     let bubbleLayout = {
         xaxis: {title: "OTU ID"},
         height: 600,
