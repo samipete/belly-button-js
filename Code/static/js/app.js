@@ -7,7 +7,7 @@ function init(){
     // Fetch the JSON data and console log it
     jsonData.then(function(data) {
         console.log(data);
-        // dropdown menu to display the top 10 OTUs found in that individual.
+        // dropdown menu to display subject ids.
         const dropDown = d3.select("#selDataset");
         const names = data.names;
         let nameOption;
@@ -39,6 +39,7 @@ function buildCharts(value, data){
     demoTable(metaData)
     console.log(sampleData)
     console.log(metaData)
+   
 };
 // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 function barChart (data){
